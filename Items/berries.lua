@@ -1,6 +1,7 @@
-local sprite_berries		= Resources.sprite_load(NAMESPACE, "Berries", path.combine(PATH, "Sprites/Items/berries.png"), 1, 15, 15)
-local sprite_effect			= Resources.sprite_load(NAMESPACE, "BerriesEffect", path.combine(PATH, "Sprites/Items/Effects/berries.png"), 3, 10, 10)
-local sprite_bush			= Resources.sprite_load(NAMESPACE, "BerriesBush", path.combine(PATH, "Sprites/Items/Effects/bush.png"), 1, 34, 18)
+local sprite_berries = Resources.sprite_load(NAMESPACE, "Berries", path.combine(PATH, "Sprites/Items/berries.png"), 1, 15, 15)
+local sprite_effect	= Resources.sprite_load(NAMESPACE, "BerriesEffect", path.combine(PATH, "Sprites/Items/Effects/berries.png"), 3, 10, 10)
+local sprite_bush = Resources.sprite_load(NAMESPACE, "BerriesBush", path.combine(PATH, "Sprites/Items/Effects/bush.png"), 8, 34, 18)
+local sprite_bush_dead = Resources.sprite_load(NAMESPACE, "BerriesBushDead", path.combine(PATH, "Sprites/Items/Effects/dead_bush.png"), 5, 34, 18)
 
 local berries = Item.new(NAMESPACE, "foragedSpoils")
 berries:set_sprite(sprite_berries)
@@ -12,11 +13,12 @@ local berrySplash = Particle.new(NAMESPACE, "bushDebris")
 berrySplash:set_sprite(sprite_effect, false, false, true)
 berrySplash:set_alpha3(1, 1, 0)
 berrySplash:set_scale(1, 1)
-berrySplash:set_size(1.1, 0.9, -0.02, 0)
+berrySplash:set_size(1.1, 0.9, -0.015, 0.01)
 berrySplash:set_orientation(0, 360, 1, 0, true)
-berrySplash:set_speed(1.6, 2, -0.002, 0)
-berrySplash:set_direction(0, 360, 0, 0)
-berrySplash:set_life(60, 80)
+berrySplash:set_speed(1.6, 3, -0.002, 0)
+berrySplash:set_direction(45, 135, 0, 0)
+berrySplash:set_gravity(0.1, 270)
+berrySplash:set_life(180, 300)
 
 local rewards = {
 	-- format is {boss object index, boss item index, boss item type}
@@ -40,7 +42,14 @@ bush:clear_callbacks()
 
 bush:onCreate(function(self)
 	self:move_contact_solid(270, -1)
+	self:sound_play(gm.constants.wBrambleShoot2, 2, 0.8 + math.random() * 0.2)
+	
+	for i = 1, 5 do
+		berrySplash:create(self.x + math.random(-16, 16), self.y + math.random(-16, 16), 2, Particle.SYSTEM.above)
+	end
+	
 	self.reward = nil
+	self.image_speed = 0.3
 end)
 
 bush:onStep(function(self)
@@ -59,8 +68,15 @@ bush:onStep(function(self)
 			end
 		end
 		
-		berrySplash:create(self.x, self.y, 20, Particle.SYSTEM.above)
-		self:destroy()
+		for i = 1, 10 do
+			berrySplash:create(self.x + math.random(-16, 16), self.y + math.random(-16, 16), 2, Particle.SYSTEM.above)
+		end
+		
+		self:sound_play(gm.constants.wBrambleShoot2, 2, 0.8 + math.random() * 0.2)
+		self.sprite_index = sprite_bush_dead
+		self.image_speed = 0.3
+		self.image_index = 0
+		self.active = 2
 	end
 end)
 
@@ -79,7 +95,7 @@ Callback.add(Callback.TYPE.onDeath, "MNBerriesSummonBush", function(actor, bound
 	for _, reward in ipairs(rewards) do	
 		if Object.wrap(actor.object_index).value == Object.find(reward[1]).value then
 			if Helper.chance(chance) then
-				local inst = bush:create(actor.x, actor.y)
+				local inst = bush:create(actor.x, actor.bbox_bottom - 32)
 				inst.reward = reward[2]
 				inst.reward_type = reward[3]
 			end

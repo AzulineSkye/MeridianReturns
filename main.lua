@@ -23,13 +23,22 @@ local init = function()
 		end
 	end
 	require("stageLoader")
-	
-	gm.sprite_replace(gm.constants.sTitle, path.combine(PATH, "Sprites/UI/title.png"), 1, false, false, 410, 100)
 
 	HOTLOADING = true
 end
+
 Initialize(init)
 
 if HOTLOADING then
 	init()
 end
+
+gm.pre_code_execute("gml_Object_oStartMenu_Create_0", function(self, other)
+	local ssr_loaded = mods["RobomandosLab-StarstormReturns"] ~= nil
+
+	if ssr_loaded then
+		gm.sprite_replace(gm.constants.sTitle, path.combine(PATH, "Sprites/UI/title_mix.png"), 1, false, false, 410, 100)
+	else
+		gm.sprite_replace(gm.constants.sTitle, path.combine(PATH, "Sprites/UI/title.png"), 1, false, false, 410, 100)
+	end
+end)

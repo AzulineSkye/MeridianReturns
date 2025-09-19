@@ -1,5 +1,5 @@
-local sprite_battery		= Resources.sprite_load(NAMESPACE, "Battery", path.combine(PATH, "Sprites/Items/battery.png"), 1, 19, 20)
-local sprite_effect			= Resources.sprite_load(NAMESPACE, "BatteryEffect", path.combine(PATH, "Sprites/Items/Effects/battery.png"))
+local sprite_battery = Resources.sprite_load(NAMESPACE, "Battery", path.combine(PATH, "Sprites/Items/battery.png"), 1, 9, 10)
+local sprite_effect	= Resources.sprite_load(NAMESPACE, "BatteryEffect", path.combine(PATH, "Sprites/Items/Effects/battery.png"), 7)
 
 local battery = Item.new(NAMESPACE, "portableBattery")
 battery:set_sprite(sprite_battery)
@@ -47,6 +47,6 @@ end)
 
 Callback.add(Callback.TYPE.onPlayerHUDDraw, "MNBatteryHudEffect", function(actor, x, y)
 	if actor:item_stack_count(battery) > 0 and actor:alarm_get(0) == -1 and actor.inventory_equipment ~= nil then
-		gm.draw_sprite(sprite_effect, 0, x + 125, y - 18)
+		gm.draw_sprite(sprite_effect, (Global._current_frame * 0.2 % 7), x + 122, y - 18)
 	end
 end)
