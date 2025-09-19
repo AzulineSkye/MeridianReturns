@@ -87,6 +87,6 @@ chaos:onPostDraw(function(actor, stack)
 		gm.draw_set_colour(Color.from_hsv(24, 100, 100))
 	end
 	gm.draw_sprite(sprite_effect, 0, actor.x - 27, actor.y - 20)
-	gm.draw_rectangle(actor.x - 29, actor.y - 2 - 37 * (actor:get_data().chaos_count / chaos_count_max), actor.x - 27, actor.y - 2, false)
+	gm.draw_rectangle(actor.x - 29, actor.y - 3 - 36 * actor:get_data().chaos_count / chaos_count_max, actor.x - 27, actor.y - 3, false)
 	gm.draw_set_colour(Color.WHITE)
 end)
