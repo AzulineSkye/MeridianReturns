@@ -58,7 +58,7 @@
 		"chaosDrive" : {
 			"name" : "Chaos Drive",
 			"pickup": "Using skills stores up barrier. Receive stored barrier at low health.",
-			"description": "Using <b>skills</c> stores up to <g>15%</c> <c_stack>(+5% per stack)</c> of your <g>max barrier</c>. Falling below <r>25% health</c> grants all stored <g>barrier</c>.",
+			"description": "Using <b>skills</c> stores up to <g>15%</c> <c_stack>(+7% per stack)</c> of your <g>max barrier</c>. Falling below <r>25% health</c> grants all stored <g>barrier</c>.",
 			"destination": "Hungry Crates,\nDansine,\nHautilon",
 			"date": "3/4/2056",
 			"story": "I'm just dumping this one into storage too. Should be the last of my trinkets coming your way for a while. This one is real interesting though, I'll tell you what! When I carry it around with me, it seems to build up some type of charge. Like static electricity. Heh, but this one shocks a lot harder than that. Thanks again for stowing all this junk for me, Craig.",
