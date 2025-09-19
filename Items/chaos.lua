@@ -45,7 +45,7 @@ chaos:onSpecialUse(function(actor, stack, active_skill)
 end)
 
 chaos:onPostStep(function(actor, stack)
-	local chaos_count_max = ((45 + 15 * stack) / 400) / (((45 + 15 * stack) / 400) + 0.85) * 400
+	local chaos_count_max = ((40 + 20 * stack) / 400) / (((40 + 20 * stack) / 400) + 0.85) * 400
 	
 	actor:get_data().chaos_using_skills = math.max(0, actor:get_data().chaos_using_skills - 1)
 	
@@ -74,7 +74,7 @@ chaos:onPostStep(function(actor, stack)
 end)
 
 chaos:onPostDraw(function(actor, stack)
-	local chaos_count_max = ((45 + 15 * stack) / 400) / (((45 + 15 * stack) / 400) + 0.85) * 400
+	local chaos_count_max = ((40 + 20 * stack) / 400) / (((40 + 20 * stack) / 400) + 0.85) * 400
 	
 	if actor:get_data().chaos_count == chaos_count_max then
 		gm.draw_set_colour(Color.from_hsv(0, 85, 92))
