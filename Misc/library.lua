@@ -82,3 +82,8 @@ function approach(current, target, change)
 		return math.max(current - change, target)
 	end
 end
+
+-- angle_dif
+function angle_dif(current, target)
+	return ((((current - target) % 360) + 540) % 360) - 180
+end
