@@ -38,6 +38,7 @@ local rewards = {
 
 local bush = Object.new(NAMESPACE, "berriesBush", Object.PARENT.interactable)
 bush.obj_sprite = sprite_bush
+bush.obj_depth = 12
 bush:clear_callbacks()
 
 bush:onCreate(function(self)

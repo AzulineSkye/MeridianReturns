@@ -47,6 +47,10 @@ end)
 chaos:onPostStep(function(actor, stack)
 	local chaos_count_max = ((30 + 30 * stack) / 400) / (((30 + 30 * stack) / 400) + 0.85) * 400
 	
+	if actor:get_data().chaos_count > chaos_count_max then
+		actor:get_data().chaos_count = chaos_count_max
+	end
+	
 	actor:get_data().chaos_using_skills = math.max(0, actor:get_data().chaos_using_skills - 1)
 	
 	if actor.hp <= actor.maxhp * 0.25 and actor:get_data().chaos_count > 0 and actor:get_data().charging == 1 then
@@ -76,7 +80,7 @@ end)
 chaos:onPostDraw(function(actor, stack)
 	local chaos_count_max = ((30 + 30 * stack) / 400) / (((30 + 30 * stack) / 400) + 0.85) * 400
 	
-	if actor:get_data().chaos_count == chaos_count_max then
+	if actor:get_data().chaos_count >= chaos_count_max then
 		gm.draw_set_colour(Color.from_hsv(0, 85, 92))
 		gm.draw_set_alpha(math.sin(Global._current_frame / 20))
 		gm.draw_rectangle(actor.x - 31, actor.y - 39, actor.x - 25, actor.y - 2, false)

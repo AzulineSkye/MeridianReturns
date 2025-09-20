@@ -9,7 +9,8 @@ outline:onCreate(function(self)
 	self.image_alpha = 0
 	self.pulse_alpha = 1
 	self.rate = 0.2
-	self.mode = 1 -- 1 is decreasing, 2 is a pulse
+	self.life = 1
+	self.mode = 1 -- 0, is static, 1 is decreasing, 2 is a pulse
 	self.pulsed = false
 	self.done = false
 end)
@@ -19,8 +20,13 @@ outline:onStep(function(self)
 	if self.done == true then self:destroy() end
 	
 	self.depth = self.parent.depth + 1
-	
-	if self.mode == 1 then
+	if self.mode == 0 then
+		if self.life <= 0 then
+			self.done = true
+		else
+			self.life = self.life - self.rate
+		end
+	elseif self.mode == 1 then
 		self.pulse_alpha = self.pulse_alpha - self.rate
 		if self.pulse_alpha <= 0 then
 			self.done = true
@@ -67,3 +73,12 @@ outline:onDraw(function(self)
 		gm.gpu_set_fog(false, self.image_blend, 0, 0)
 	end
 end)
+
+-- math.approach recreation
+function approach(current, target, change)
+	if current < target then
+		return math.min(current + change, target)
+	else
+		return math.max(current - change, target)
+	end
+end
