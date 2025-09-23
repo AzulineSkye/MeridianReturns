@@ -38,10 +38,11 @@ local rewards = {
 
 local bush = Object.new(NAMESPACE, "berriesBush", Object.PARENT.interactable)
 bush.obj_sprite = sprite_bush
-bush.obj_depth = 12
+bush.obj_depth = 90
 bush:clear_callbacks()
 
 bush:onCreate(function(self)
+	self:interactable_init()
 	self:move_contact_solid(270, -1)
 	self:sound_play(gm.constants.wBrambleShoot2, 2, 0.8 + math.random() * 0.2)
 	

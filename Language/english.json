@@ -19,13 +19,13 @@
 	},
 
 	"item" : {
-		"portableBattery" : {
-			"name" : "Portable Battery",
+		"lithiumBatteries" : {
+			"name" : "Lithium Batteries",
 			"pickup": "Increased health regeneration while equipment is off cooldown.",
 			"description": "While your equipment is off cooldown, increase <g>health regeneration</c> by <g>1.8</c> <c_stack>(+1.8 per stack)</c> <g>hp</c> per second.",
 			"destination": "Stepped Terraces,\n3rd Colony,\nMars",
 			"date": "8/12/2056",
-			"story": "I know it's a bit antiquated by this point, but my pops gave me this battery for my first 'bot, so I'll do the same for you. You might have it running slower than others, but boy howdy does it last. This thing hasn't been refreshed since I first got it way back when, and it's still kicking! I know you'll get some better use out of it than I do.",
+			"story": "I know it's a bit antiquated by this point, but my pops gave me these batteries for my first 'bot, so I'll do the same for you. You might have them running slower than others, but boy howdy do they last. These things haven't been refreshed since I first got them way back when, and they're still kicking! I know you'll get some better use out of them than I do.",
 			"priority": "Standard"
 		},
 		"foragedSpoils" : {
@@ -67,7 +67,8 @@
 	},
 	
 	"interactable" : {
-		"berriesBush.text" : "Forage"
+		"berriesBush.text" : "Forage",
+		"shrineBestowal.text" : "Call upon mystical forces"
 	},
 	
 	"actor" : {

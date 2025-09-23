@@ -10,16 +10,21 @@ outline:onCreate(function(self)
 	self.pulse_alpha = 1
 	self.rate = 0.2
 	self.life = 1
-	self.mode = 1 -- 0, is static, 1 is decreasing, 2 is a pulse
+	self.mode = 1 -- 0 is static, 1 is decreasing, 2 is a pulse
 	self.pulsed = false
 	self.done = false
+	self.spawned = 0
 end)
 
 outline:onStep(function(self)
 	if not Instance.exists(self.parent) then self:destroy() end
 	if self.done == true then self:destroy() end
 	
-	self.depth = self.parent.depth + 1
+	if self.spawned == 0 then
+		self.spawned = 1
+		self.depth = self.parent.depth + 1
+	end
+	
 	if self.mode == 0 then
 		if self.life <= 0 then
 			self.done = true
@@ -49,24 +54,28 @@ end)
 outline:onDraw(function(self)
 	local actor = self.parent
 	
-	if actor.visible then
+	if actor.visible and self.spawned == 1 and not self.done then
 		gm.gpu_set_fog(true, self.image_blend, 0, 0)
 		
 		gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x + 2, actor.ghost_y + 2, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
 		gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x + 2, actor.ghost_y, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
 		gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x + 2, actor.ghost_y - 2, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
-		gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x, actor.ghost_y - 2, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
-		gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x - 2, actor.ghost_y - 2, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
+		gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x - 2, actor.ghost_y + 2, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
 		gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x - 2, actor.ghost_y, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
+		gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x - 2, actor.ghost_y - 2, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
+		gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x, actor.ghost_y + 2, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
+		gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x, actor.ghost_y - 2, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
 	
 		if actor.state_strafe_half then
 			if gm.bool(actor.state_strafe_half) then
-				gm.draw_sprite_ext(actor.sprite_index2, actor.image_index2, actor.ghost_x + 2, actor.ghost_y + 2 + actor.ydisp, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
-				gm.draw_sprite_ext(actor.sprite_index2, actor.image_index2, actor.ghost_x + 2, actor.ghost_y + actor.ydisp, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
-				gm.draw_sprite_ext(actor.sprite_index2, actor.image_index2, actor.ghost_x + 2, actor.ghost_y - 2 + actor.ydisp, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
-				gm.draw_sprite_ext(actor.sprite_index2, actor.image_index2, actor.ghost_x, actor.ghost_y - 2 + actor.ydisp, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
-				gm.draw_sprite_ext(actor.sprite_index2, actor.image_index2, actor.ghost_x - 2, actor.ghost_y - 2 + actor.ydisp, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
-				gm.draw_sprite_ext(actor.sprite_index2, actor.image_index2, actor.ghost_x - 2, actor.ghost_y + actor.ydisp, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
+				gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x + 2, actor.ghost_y + 2, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
+				gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x + 2, actor.ghost_y, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
+				gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x + 2, actor.ghost_y - 2, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
+				gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x - 2, actor.ghost_y + 2, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
+				gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x - 2, actor.ghost_y, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
+				gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x - 2, actor.ghost_y - 2, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
+				gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x, actor.ghost_y + 2, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
+				gm.draw_sprite_ext(actor.sprite_index, actor.image_index, actor.ghost_x, actor.ghost_y - 2, actor.image_xscale, actor.image_yscale, actor.image_angle, self.image_blend, self.pulse_alpha / 2)
 			end
 		end
 		

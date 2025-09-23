@@ -1,7 +1,7 @@
-local sprite_battery = Resources.sprite_load(NAMESPACE, "Battery", path.combine(PATH, "Sprites/Items/battery.png"), 1, 9, 10)
+local sprite_battery = Resources.sprite_load(NAMESPACE, "Battery", path.combine(PATH, "Sprites/Items/battery.png"), 1, 15, 16)
 local sprite_effect	= Resources.sprite_load(NAMESPACE, "BatteryEffect", path.combine(PATH, "Sprites/Items/Effects/battery.png"), 7)
 
-local battery = Item.new(NAMESPACE, "portableBattery")
+local battery = Item.new(NAMESPACE, "lithiumBatteries")
 battery:set_sprite(sprite_battery)
 battery:set_tier(Item.TIER.common)
 battery:set_loot_tags(Item.LOOT_TAG.category_healing)

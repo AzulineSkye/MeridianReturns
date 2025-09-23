@@ -42,7 +42,7 @@ orb:onDamagedProc(function(actor, attacker, stack, hit_info)
 		local inst = bubble:create(actor.x, actor.y)
 		inst.parent = actor
 		inst.target_x = actor.x + math.random(-100, 100)
-		inst.target_y = actor.y + math.random(-100, 100)
+		inst.target_y = actor.y + math.random(-75, 75)
 	end
 end)
 
@@ -75,9 +75,9 @@ bubble:onStep(function(self)
 	
 	if life >= life_max then
 		if Instance.exists(Instance.wrap(actor.value)) then
-			actor:fire_explosion_local(self.x, self.y, 60, 60, 0.6, sprite_pop)
+			actor:fire_explosion_local(self.x, self.y, 65, 65, 0.6, sprite_pop)
 		elseif gm._mod_net_isHost() then
-			actor:fire_explosion_noparent(self.x, self.y, self.team, self.damage, false, nil, sprite_pop, 60 / 95, 60 / 20)
+			actor:fire_explosion_noparent(self.x, self.y, self.team, self.damage, false, nil, sprite_pop, 65 / 95, 65 / 20)
 		end
 		
 		self:sound_play(sound_pop, 1, 0.8 + math.random() * 0.4)

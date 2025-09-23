@@ -1,12 +1,12 @@
-local sprite_mask		= Resources.sprite_load(NAMESPACE, "basaltCrabMask",		path.combine(PATH, "Sprites/Enemies/BasaltCrab/mask.png"), 1, 48, 25)
-local sprite_palette	= Resources.sprite_load(NAMESPACE, "basaltCrabPalette",		path.combine(PATH, "Sprites/Enemies/BasaltCrab/palette.png"))
-local sprite_portrait	= Resources.sprite_load(NAMESPACE, "basaltCrabPortrait",	path.combine(PATH, "Sprites/Enemies/BasaltCrab/portrait.png"))
-local sprite_spawn		= Resources.sprite_load(NAMESPACE, "basaltCrabSpawn",		path.combine(PATH, "Sprites/Enemies/BasaltCrab/spawn.png"), 6, 48, 25)
-local sprite_idle		= Resources.sprite_load(NAMESPACE, "basaltCrabIdle",		path.combine(PATH, "Sprites/Enemies/BasaltCrab/idle.png"), 1, 48, 25)
-local sprite_walk		= Resources.sprite_load(NAMESPACE, "basaltCrabWalk",		path.combine(PATH, "Sprites/Enemies/BasaltCrab/walk.png"), 4, 48, 25)
-local sprite_death		= Resources.sprite_load(NAMESPACE, "basaltCrabDeath",		path.combine(PATH, "Sprites/Enemies/BasaltCrab/death.png"), 13, 86, 61)
-local sprite_shoot1		= Resources.sprite_load(NAMESPACE, "basaltCrabShoot1",		path.combine(PATH, "Sprites/Enemies/BasaltCrab/shoot1.png"), 9, 70, 25)
-local sprite_shoot2		= Resources.sprite_load(NAMESPACE, "basaltCrabShoot2",		path.combine(PATH, "Sprites/Enemies/BasaltCrab/shoot2.png"), 18, 48, 25)
+local sprite_mask = Resources.sprite_load(NAMESPACE, "basaltCrabMask", path.combine(PATH, "Sprites/Enemies/BasaltCrab/mask.png"), 1, 48, 25)
+local sprite_palette = Resources.sprite_load(NAMESPACE, "basaltCrabPalette", path.combine(PATH, "Sprites/Enemies/BasaltCrab/palette.png"))
+local sprite_portrait = Resources.sprite_load(NAMESPACE, "basaltCrabPortrait", path.combine(PATH, "Sprites/Enemies/BasaltCrab/portrait.png"))
+local sprite_spawn = Resources.sprite_load(NAMESPACE, "basaltCrabSpawn", path.combine(PATH, "Sprites/Enemies/BasaltCrab/spawn.png"), 6, 48, 25)
+local sprite_idle = Resources.sprite_load(NAMESPACE, "basaltCrabIdle", path.combine(PATH, "Sprites/Enemies/BasaltCrab/idle.png"), 1, 48, 25)
+local sprite_walk = Resources.sprite_load(NAMESPACE, "basaltCrabWalk", path.combine(PATH, "Sprites/Enemies/BasaltCrab/walk.png"), 4, 48, 25)
+local sprite_death = Resources.sprite_load(NAMESPACE, "basaltCrabDeath", path.combine(PATH, "Sprites/Enemies/BasaltCrab/death.png"), 13, 86, 61)
+local sprite_shoot1 = Resources.sprite_load(NAMESPACE, "basaltCrabShoot1", path.combine(PATH, "Sprites/Enemies/BasaltCrab/shoot1.png"), 9, 70, 25)
+local sprite_shoot2	= Resources.sprite_load(NAMESPACE, "basaltCrabShoot2", path.combine(PATH, "Sprites/Enemies/BasaltCrab/shoot2.png"), 18, 48, 25)
 
 gm.elite_generate_palettes(sprite_palette)
 
@@ -216,6 +216,8 @@ mcard.object_id = crab.value
 mcard.spawn_cost = 160
 mcard.spawn_type = Monster_Card.SPAWN_TYPE.classic
 mcard.can_be_blighted = false
+
+if HOTLOADING then return end
 
 local stages = {
 	"ror-magmaBarracks",
